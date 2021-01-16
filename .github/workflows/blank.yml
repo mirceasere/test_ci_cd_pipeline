@@ -1,0 +1,25 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+
+jobs:
+  load:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Load test your platform with Rungutan
+      uses: Rungutan/rungutan-actions@1.0.0
+      env:
+        RUNGUTAN_TEAM_ID: ${{ secrets.RUNGUTAN_TEAM_ID }}
+        RUNGUTAN_API_KEY: ${{ secrets.RUNGUTAN_API_KEY }}
+        RUNGUTAN_TEST_FILE: test_file.json
+        RUNGUTAN_TEST_NAME: ${{ github.repository }}-${{ github.ref }}
