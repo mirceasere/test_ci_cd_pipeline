@@ -1,0 +1,42 @@
+{
+    "num_clients": 30,
+    "hatch_rate": 30,
+    "run_time": 10,
+    "threads_per_region": 1,
+    "workflow": [
+        {
+            "path": "/v1/api/tests/list",
+            "method": "POST",
+            "data": "{\"team_id\":\"rungutan\"}",
+            "headers": {
+                "X-Api-Key": "${vault.api_key}",
+                "content-type": "application/json"
+            },
+            "extract": [
+                {
+                    "parameter_name": "testId",
+                    "location": "body",
+                    "key": "Tests.0.test_id"
+                }
+            ]
+        },
+        {
+            "path": "/v1/api/tests/get",
+            "method": "POST",
+            "data": "{\"test_id\": \"${testId}\",\"team_id\": \"rungutan\"}",
+            "headers": {
+                "X-Api-Key": "${vault.api_key}",
+                "content-type": "application/json"
+            },
+            "extract": []
+        }
+    ],
+    "domain_name": "api.rungutan.com",
+    "protocol": "https",
+    "test_region": [
+        "us-east-1"
+    ],
+    "min_wait": 1000,
+    "max_wait": 1000,
+    "test_name": "DEMO - a bit more powerful test with only successful results"
+}
